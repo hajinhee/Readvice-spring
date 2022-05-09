@@ -12,12 +12,4 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final AuthService service;
 
-    @PostMapping("/login")
-    public String login(@RequestBody){
-        return service.login();
-    }
-    @GetMapping("/logout") //파라미터가 없으면 Get?
-    public String logout(){
-        return "";
-    }
 }
