@@ -1,10 +1,8 @@
-package kr.readvice.api.controllers;
+package kr.readvice.api.auth.controllers;
 
-import kr.readvice.api.domains.User;
-import kr.readvice.api.services.UserService;
-import kr.readvice.api.services.UserServiceImpl;
+import kr.readvice.api.auth.domains.User;
+import kr.readvice.api.auth.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -27,6 +25,8 @@ public class UserController {
     public String logout(){
         return "";
     }
+
+    // Embeded Methods
     @GetMapping("/findAll")  //find 라는 이름은 무조건 @GetMapping
     public List<User> findAll() {
         return service.findAll();

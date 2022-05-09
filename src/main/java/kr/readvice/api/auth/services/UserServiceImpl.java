@@ -1,7 +1,7 @@
-package kr.readvice.api.services;
+package kr.readvice.api.auth.services;
 
-import kr.readvice.api.domains.User;
-import kr.readvice.api.repositories.UserRepository;
+import kr.readvice.api.auth.domains.User;
+import kr.readvice.api.auth.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
