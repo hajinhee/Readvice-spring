@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.util.Random;
 import java.util.Scanner;
+
 @Data
 @AllArgsConstructor
 class Calculator{
@@ -12,6 +13,7 @@ class Calculator{
     private String opcode;
     private int num2;
     @Override public String toString(){
+
         int res = 0;
         switch (opcode){
             case "+": res = num1 + num2; break;
@@ -48,10 +50,9 @@ public class Q1__Gugudan {
     } // main
     static void calc(){
         Scanner s = new Scanner(System.in);
-        System.out.println("숫자1, 연산자, 숫자2");
+        System.out.println("숫자1, 숫자2, 연산자");
         System.out.println(new Calculator(s.nextInt(), s.next(), s.nextInt()));;
     }
-
     static void bmi(){
 
     }
@@ -443,6 +444,5 @@ public class Q1__Gugudan {
         }
 
     }
-
 
 }
