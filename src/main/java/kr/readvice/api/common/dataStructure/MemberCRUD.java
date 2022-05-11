@@ -67,7 +67,7 @@ public class MemberCRUD {
     @Data @NoArgsConstructor
     static class Member{
         protected String userid, name, password, profileImg, phone, email;
-        // inner class
+        // 2
         public Member(Builder builder) {
             this.userid = builder.userid;
             this.name = builder.name;
@@ -76,6 +76,7 @@ public class MemberCRUD {
             this.phone = builder.phone;
             this.email = builder.email;
         }
+        // 1
         static class Builder{
             private String userid, name, password, profileImg, phone, email;
             public Builder (String userid){this.userid=userid;}
