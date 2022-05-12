@@ -1,6 +1,6 @@
 package kr.readvice.api.common.dataStructure;
 
-import kr.readvice.api.common.lambda.Lambda;
+import static kr.readvice.api.common.lambda.Lambda.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -73,7 +73,9 @@ public class AppleList {
                     System.out.println("9. clear");
                     service.clear();
                 case "10":
-                    System.out.println("사과 가격은 "+ Lambda.integer(""));
+                    System.out.println("사과 가격은 "+ integer("1000"));
+                    // 함수인 array가 return하는 값이 new int[]이기 때문에 array는 곧 함수 타입의 객체이다.
+                    System.out.println("내가 만든 배열의 사이즈는 "+ array(7));
                     break;
                 default: break;
             }
