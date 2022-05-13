@@ -22,7 +22,7 @@ public class AppleList {
             switch (s.next()){
                 case "0": return;
                 case "1":
-                    System.out.println("1. save");
+                    System.out.println("save");
                     Apple yd = new Apple.Builder()
                             .origin("영동")
                             .color("Red")
@@ -43,34 +43,34 @@ public class AppleList {
                     service.save(pg);
                     break;
                 case "2":
-                    System.out.println("2. update");
+                    System.out.println("update");
 
                     break;
                 case "3":
-                    System.out.println("3. delete");
+                    System.out.println("delete");
                     break;
                 case "4":
-                    System.out.println("4. findById");
+                    System.out.println("findById");
                     System.out.println((service.findById(0) != null) ? service.findById(0) : "찾는 사과가 없습니다.");
                     break;
                 case "5":
-                    System.out.println("5. findByOrigin");
+                    System.out.println("findByOrigin");
                     System.out.println(service.findByOrigin("영동"));
                     break;
                 case "6":
-                    System.out.println("6. findByColor");
+                    System.out.println("findByColor");
                     System.out.println(service.findByColor("Red"));
                     break;
                 case "7":
-                    System.out.println("7. findAll");
+                    System.out.println("findAll");
                     System.out.println(service.findAll());
                     break;
                 case "8":
-                    System.out.println("8. count");
+                    System.out.println("count");
                     System.out.println("총 사과 수: "+service.count()+"개");
                     break;
                 case "9":
-                    System.out.println("9. clear");
+                    System.out.println("clear");
                     service.clear();
                 case "10":
                     System.out.println("사과 가격은 "+ integer("1000"));
@@ -164,7 +164,7 @@ public class AppleList {
 
         @Override
         public List<Apple> findAll() {
-            return null;
+            return list;
         }
 
         @Override

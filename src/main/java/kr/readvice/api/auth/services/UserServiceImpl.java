@@ -2,6 +2,7 @@ package kr.readvice.api.auth.services;
 
 import kr.readvice.api.auth.domains.User;
 import kr.readvice.api.auth.repositories.UserRepository;
+import kr.readvice.api.common.dataStructure.Box;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -69,5 +70,14 @@ public class UserServiceImpl implements UserService{
     public boolean existsById(String userid) {
         return repository.existsById(0L); // userid 타입이 다름
 
+    }
+
+    @Override
+    public List<User> findByUserName(String name) {
+        List<User> ls = repository.findAll();
+        Box<String, User> box = new Box<>();
+//        ls = box.findByUserName(ls, name);
+//        ls.stream().filter(...)
+        return null;
     }
 }
