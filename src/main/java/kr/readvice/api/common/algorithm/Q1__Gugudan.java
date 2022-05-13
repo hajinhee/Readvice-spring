@@ -1,39 +1,47 @@
 package kr.readvice.api.common.algorithm;
 
-import kr.readvice.api.common.lambda.Lambda;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 import java.util.Scanner;
+import java.util.function.BiFunction;
 
 @Data
-@AllArgsConstructor
 class Calculator{
-    private int num1;
-    private String opcode;
-    private int num2;
-    @Override public String toString(){
-
-        int res = 0;
-        switch (opcode){
-            case "+": res = num1 + num2; break;
-            case "-": res = num1 - num2; break;
-            case "*": res = num1 * num2; break;
-            case "/": res = num1 / num2; break;
-        }
-        return num1 + " "+opcode+" "+num2 +" = "+res;
+    @RequiredArgsConstructor
+    enum Operation{
+        PLUS("+", (a,b)->(a+b)),
+        MINUS("-", (a,b)->(a-b)),
+        MULTI("*", (a,b)->(a*b)),
+        DIVIDE("/", (a,b)->(a/b)),
+        ;
+        private final String opcode;
+        private final BiFunction<Integer, Integer, Integer> f;
+        @Override
+        public String toString() {return opcode;}
+        public int apply(int a, int b){return f.apply(a, b);}
     }
+    @Test
+    void calculatorTest(){
+        System.out.println("+: "+Operation.PLUS.apply(10, 5));
+        System.out.println("-: "+Operation.MINUS.apply(10, 5));
+        System.out.println("*: "+Operation.MULTI.apply(10, 5));
+        System.out.println("/: "+Operation.DIVIDE.apply(10, 5));
+    }
+
 }
 public class Q1__Gugudan {
     public static void main(String[] args) { // 03소수 quiz03prime()
         Scanner scanner = new Scanner(System.in);
+
         while (true){
             System.out.println("1계산기 2Bmi 3주사위 4가위바위보 5윤년 \n" +
                     "6숫자추론 7로또 8예약 9입출금 10구구단 \n" +
                     "11큰숫자게임 12야구");
             switch (scanner.next()){
-                case "1": calc(); break;
+                case "1":  break;
                 case "2": bmi(); break;
                 case "3": dice(); break;
                 case "4": rps(); break;
@@ -49,11 +57,7 @@ public class Q1__Gugudan {
             }
         }
     } // main
-    static void calc(){
-        Scanner s = new Scanner(System.in);
-        System.out.println("숫자1, 숫자2, 연산자");
-        System.out.println(new Calculator(s.nextInt(), s.next(), s.nextInt()));;
-    }
+
     static void bmi(){
 
     }
