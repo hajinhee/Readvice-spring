@@ -1,8 +1,11 @@
 package kr.readvice.api.common.dataStructure;
 
 import static kr.readvice.api.common.lambda.Lambda.*;
+
+import kr.readvice.api.common.lambda.Lambda;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,74 +16,7 @@ import java.util.stream.Collectors;
 // Apple color, price, origin
 // HashMap id = key, List id = index
 public class AppleList {
-    //controller = router
-    public static void main(String[] args) {
-        AppleService service = new AppleServiceImpl();
-        while (true){
-            Scanner s = new Scanner(System.in);
-            System.out.println("0.exit 1.save 2.update 3.delete 4.findById 5.findByOrigin 6.findByColor 7.findAll 8.count 9.clear");
-            switch (s.next()){
-                case "0": return;
-                case "1":
-                    System.out.println("save");
-                    Apple yd = new Apple.Builder()
-                            .origin("영동")
-                            .color("Red")
-                            .price(1000)
-                            .build();
-                    service.save(yd);
-                    Apple yd2 = new Apple.Builder()
-                            .origin("영동")
-                            .color("Blue")
-                            .price(1500)
-                            .build();
-                    service.save(yd2);
-                    Apple pg = new Apple.Builder()
-                            .origin("풍기")
-                            .color("Red")
-                            .price(20000)
-                            .build();
-                    service.save(pg);
-                    break;
-                case "2":
-                    System.out.println("update");
 
-                    break;
-                case "3":
-                    System.out.println("delete");
-                    break;
-                case "4":
-                    System.out.println("findById");
-                    System.out.println((service.findById(0) != null) ? service.findById(0) : "찾는 사과가 없습니다.");
-                    break;
-                case "5":
-                    System.out.println("findByOrigin");
-                    System.out.println(service.findByOrigin("영동"));
-                    break;
-                case "6":
-                    System.out.println("findByColor");
-                    System.out.println(service.findByColor("Red"));
-                    break;
-                case "7":
-                    System.out.println("findAll");
-                    System.out.println(service.findAll());
-                    break;
-                case "8":
-                    System.out.println("count");
-                    System.out.println("총 사과 수: "+service.count()+"개");
-                    break;
-                case "9":
-                    System.out.println("clear");
-                    service.clear();
-                case "10":
-                    System.out.println("사과 가격은 "+ integer("1000"));
-                    // 함수인 array가 return하는 값이 new int[]이기 때문에 array는 곧 함수 타입의 객체이다.
-                    System.out.println("내가 만든 배열의 사이즈는 "+ array(7));
-                    break;
-                default: break;
-            }
-        }
-    }
     //domain DTO
     @Data
     @NoArgsConstructor
@@ -179,5 +115,53 @@ public class AppleList {
             return list.size();
         }
     }
-
-}
+    @Test
+    void appleTest(){
+        AppleService service = new AppleServiceImpl();
+        System.out.println("### save ###");
+        Apple yd = new Apple.Builder()
+                .origin("영동")
+                .color("Red")
+                .price(1000)
+                .build();
+        service.save(yd);
+        Apple yd2 = new Apple.Builder()
+                .origin("영동")
+                .color("Blue")
+                .price(1500)
+                .build();
+        service.save(yd2);
+        Apple pg = new Apple.Builder()
+                .origin("풍기")
+                .color("Red")
+                .price(20000)
+                .build();
+        service.save(pg);
+        System.out.println("### update ###");
+        service.update(0, new Apple.Builder()
+                .origin("캘리포니아")
+                .color("YELLOW")
+                .price(20000)
+                .build());
+        System.out.println("### delete ###");
+        service.delete(new Apple.Builder()
+                .origin("캘리포니아")
+                .color("YELLOW")
+                .price(20000)
+                .build());
+        System.out.println("### findById ###");
+        System.out.println("첫번째 사과 정보: "+ service.findById(0));
+        System.out.println("### findByOrigin ###");
+        System.out.println("원산지가 [영동]인 사과 정보: "+service.findByOrigin("영동"));
+        System.out.println("### findByColor ###");
+        System.out.println("색이 [Red]인 사과 정보: "+service.findByColor("Red"));
+        System.out.println("### findAll ###");
+        System.out.println("전체 사과 정보: "+service.findAll());
+        System.out.println("### count ###");
+        System.out.println("총 사과 수: "+service.count()+"개");
+        System.out.println("### clear ###");
+        service.clear();
+        System.out.println("사과 가격은 "+ integer("1000"));
+        System.out.println("내가 만든 배열의 사이즈는 "+ array(7));
+            }
+        }
