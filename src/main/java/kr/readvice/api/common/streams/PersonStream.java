@@ -19,36 +19,37 @@ public class PersonStream {
     @Getter
     static class Person{
         private String name, ssn;
-
+        private Boolean getGenderChecker(String s){
+            return ssn.substring(7).equals(s);
+        }
         @Override
         public String toString() {
-            String gender = ((ssn.substring(ssn.lastIndexOf("-")+1).equals("1") || ssn.substring(ssn.lastIndexOf("-")+1).equals("3") ) ? "남자" : "여자");
+            String gender = (getGenderChecker("1") || getGenderChecker("3" ) ? "남자" : "여자");
             int year = ((Integer.parseInt(ssn.substring(7))<=2) ? Integer.parseInt(ssn.substring(0, 2))+1900 : Integer.parseInt(ssn.substring(0, 2))+2000);
-            int age = 2022-year+1;
+            int age = 2022-year;
             return String.format("%s님의 나이는 %d세, 성별은 %s입니다.", name, age, gender);
         }
     }
-    interface PersonService{ Person search(List<Person> arr);}
-
-    static class PersonServiceImpl implements PersonService{
-        @Override
-        public Person search(List<Person> arr) {
-            return arr
-                    .stream()
-                    .filter(e -> e.getName().equals("하진희"))
-                    .collect(Collectors.toList()).get(0);
-        }
+    // 기능
+    //@FunctionalInterface -> 하나의 메소드만 존재해야 한다.
+    @FunctionalInterface interface PersonService{
+        Person search(List<Person> person);
     }
+
     @Test
     void personStreamTest(){
+        // 주어진 값
         List<Person> arr = Arrays.asList(
                 Person.builder().name("홍길동").ssn("900120-1").build(),
                 Person.builder().name("김유신").ssn("970620-1").build(),
                 Person.builder().name("유관순").ssn("040920-4").build(),
                 Person.builder().name("하진희").ssn("920530-2").build()
         );
-        System.out.println(new PersonServiceImpl()
-                .search(arr));
+        PersonService ps = (person) ->  person
+                .stream()
+                .filter(e -> e.getName().equals("하진희"))
+                .collect(Collectors.toList()).get(0);
+        System.out.println(ps.search(arr));
 
 
 }}
