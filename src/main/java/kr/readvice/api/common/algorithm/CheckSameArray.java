@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class CheckSameArray {
     @Builder
@@ -14,20 +15,21 @@ public class CheckSameArray {
     @NoArgsConstructor
     @Getter
     private static class Solution{
-        private int[] a;
-        private int[] b;
-        String c;
+        private List<Integer> list;
 
-        @Override
-        public String toString() {
-            return String.format("%s", c);
-        }
     }
-
+    @FunctionalInterface
     interface SolutionService{
-        String solution(int[] a, int[] b);
+        Boolean solution(Solution s, Solution s1);
     }
 
     @Test
-    void solutionTest(){}
+    void solutionTest(){
+        List<Solution> list = Arrays.asList(
+                Solution.builder().list(Arrays.asList(1, 3, 2)).build(),
+                Solution.builder().list(Arrays.asList(2, 3, 1)).build()
+        );
+//        SolutionService sol = (x, y) -> ;
+//        System.out.println(sol.solution(l));
+    }
 }

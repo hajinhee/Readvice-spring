@@ -6,18 +6,38 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 public class Gugudan {
     @Builder
-    @AllArgsConstructor
     @NoArgsConstructor
+    @AllArgsConstructor
     @Getter
     private static class Solution{
-        String c;
+        private int[][] arr;
 
+        @Override
+        public String toString() {
+            return String.format("구구단: ", arr);
+        }
+    }
+    @FunctionalInterface
+    interface SolutionService{
+        void solution();
     }
 
-    interface SolutionService{}
-
     @Test
-    void solutionTest(){}
+    void solutionTest(){
+        SolutionService f = () -> {
+            for (int i = 2; i < 10; i+=4) {
+                for (int j = 1; j < 10; j++) {
+                    for (int k = i; k < i+4; k++) {
+                        System.out.print((k + "*"+j+"="+(k*j)+"\t"));
+                    }
+                    System.out.println();
+                }System.out.println();
+            }
+        };
+        f.solution();
+    }
 }

@@ -15,11 +15,10 @@ public class PrimeNumber {
     private static class Solution{
         private int start, end;
         private String prime;
-        private int count;
 
         @Override
         public String toString() {
-            return String.format("소수는 %d개, [%s]입니다.", count, prime);
+            return String.format("소수는 [%s]입니다.", prime);
         }
     }
 
@@ -32,26 +31,26 @@ public class PrimeNumber {
     void solutionTest(){
         SolutionService f = (x, y) -> {
             String prime = "";
-            int count = 0;
             for (int i = x; i<y; i++) {
-                boolean flag = true;
+                boolean b = true;
                 if (i == 1) {
-                    flag = false;
+                    b = false;
                     continue;
                 }
                 for (int j = 2; j < i; j++) {
                     if (i % j == 0) {
-                        flag = false;
+                        b = false;
                         break;
                     }
                 }
-                if (flag == true) {
-                    count++;
+                if (b) {
                     prime += i + "\t";
                 }
             }
-                return Solution.builder().prime(prime).count(count).build();
+                return Solution.builder()
+                        .prime(prime).build();
         };
-        System.out.println(f.solution(1, 100));
+//        Solution s = Solution.builder().start(1).end(100).build();
+        System.out.println(f.solution(1, 110));
     }
 };
