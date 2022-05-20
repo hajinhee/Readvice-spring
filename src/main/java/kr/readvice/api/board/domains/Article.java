@@ -1,25 +1,36 @@
 package kr.readvice.api.board.domains;
 
-import lombok.Data;
+import kr.readvice.api.auth.domains.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
-@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 @Component
 @Entity
-@Table(name = "articles")
+@Table(name="articles")
 public class Article {
+    // Builder
+    @Id @GeneratedValue
+    @Column(name = "article_id") private long articleId;
+    private String title;
+    private String content;
+    private String writtenDate;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(nullable = false) private String projects;
-    @Column(nullable = false) private String startDate;
-    @Column(nullable = false) private String status;
-    @Column(nullable = false) private String team;
-    @Column(nullable = false)private String progress;
-    @Column(nullable = false) private String action;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id") //외래 키 매핑 시 사용
+    private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id") //외래 키 매핑 시 사용
+    private Board board;
 
 
 }

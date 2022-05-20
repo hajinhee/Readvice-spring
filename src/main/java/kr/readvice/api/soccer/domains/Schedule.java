@@ -1,23 +1,31 @@
 package kr.readvice.api.soccer.domains;
 
-import lombok.Data;
+import lombok.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
-@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 @Component
 @Entity
-@Table(name = "schedule")
+@Table(name = "schedules")
 public class Schedule {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(nullable = false) private String stadiumId;
-    @Column(nullable = false) private String scheDate;
-    @Column private String gubun;
-    @Column private String hometeamId;
-    @Column private String awayteamId;
-    @Column private int homeScore;
-    @Column private int awayScore;
+    @Id
+    @Column(name = "schedule_no")
+    @GeneratedValue(strategy = GenerationType.IDENTITY) private long scheduleNo;
+    private String scheDate;
+    private String gubun;
+    private String hometeamId;
+    private String awayteamId;
+    private String homeScore;
+    private String awayScore;
+    private String stadiumId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "stadium_no")
+    private Stadium stadium;
 
 }

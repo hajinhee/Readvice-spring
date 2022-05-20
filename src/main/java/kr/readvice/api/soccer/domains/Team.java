@@ -1,32 +1,39 @@
 package kr.readvice.api.soccer.domains;
 
-import lombok.Data;
+import lombok.*;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 @Component
 @Entity
-@Table(name = "team")
+@Table(name = "teams")
 public class Team {
-    @Id private Long id;
+    @Id
+    @Column(name = "team_no")
+    @GeneratedValue(strategy = GenerationType.IDENTITY) private long teamNo;
     @Column(nullable = false) private String teamId;
-    @Column private String regionName;
-    @Column private String teamName;
-    @Column private String eTeamName;
-    @Column private String origYyyy;
     @Column(nullable = false) private String stadiumId;
-    @Column private String zipCode1;
-    @Column private String zipCode2;
-    @Column private String address;
-    @Column private String ddd;
-    @Column private String tel;
-    @Column private String fax;
-    @Column private String homepage;
-    @Column private String teamOwner;
+    private String regionName;
+    private String teamName;
+    private String eTeamName;
+    private String origYyyy;
+    private String zipCode1;
+    private String zipCode2;
+    private String address;
+    private String ddd;
+    private String tel;
+    private String fax;
+    private String homepage;
+    private String owner;
+
+    @OneToMany(mappedBy = "team")
+    List<Player> players = new ArrayList<>();
 }
 

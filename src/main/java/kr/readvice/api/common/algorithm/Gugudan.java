@@ -7,37 +7,94 @@ import lombok.NoArgsConstructor;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 public class Gugudan {
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Getter
-    private static class Solution{
-        private int[][] arr;
-
+    @Builder @Getter @NoArgsConstructor @AllArgsConstructor
+    static class Solution{
+        private int num ;
+        private String result;
         @Override
         public String toString() {
-            return String.format("구구단: ", arr);
+            return result ;
         }
     }
-    @FunctionalInterface
-    interface SolutionService{
-        void solution();
+    @Getter @AllArgsConstructor @NoArgsConstructor @Builder
+    static class JinyoungSolution{
+        private String result;
+        private int num;
+        @Override
+        public String toString() {
+            return result;
+        }
     }
-
-    @Test
-    void solutionTest(){
-        SolutionService f = () -> {
-            for (int i = 2; i < 10; i+=4) {
-                for (int j = 1; j < 10; j++) {
-                    for (int k = i; k < i+4; k++) {
-                        System.out.print((k + "*"+j+"="+(k*j)+"\t"));
-                    }
-                    System.out.println();
-                }System.out.println();
+    @FunctionalInterface interface ISolution{ Solution solution(Solution s);}
+    @FunctionalInterface interface IMinseoGugudan{ void solution();}
+    @FunctionalInterface interface IJinyoungGugudan{ JinyoungSolution solution(JinyoungSolution s);}
+    @FunctionalInterface interface IHyungukSolution{ void solution();}
+    static class Service{
+        static IMinseoGugudan iMinseo = ()-> {
+            int i = 0, j = 0;
+            for ( i = 1; i < 10; i++) {
+                for ( j = 2; j < 6; j++) {
+                    System. out.print( j + "*" + i + "=" + i * j + "\t");
+                }
+                System. out.println();
+            }
+            System. out.println();
+            for ( i = 1; i < 10; i++) {
+                for ( j = 6; j < 10; j++) {
+                    System. out.print( j + "*" + i + "=" + i * j + "\t");
+                }
+                System. out.println();
             }
         };
-        f.solution();
+        static IJinyoungGugudan iJinyoung = e -> {
+            String result = "";
+            for(int k = 2; k <= e.getNum(); k+=4) {
+                for (int i = 1; i <= e.getNum(); i++) {
+                    for (int j = k; j < k+4; j++) {
+                        result +=  j + "*" + i+ "=" +(j*i)+"\t";
+                    }
+                    result += '\n';
+                }
+                result += '\n';
+            }
+            return JinyoungSolution.builder().result(result).build();
+        };
+        static ISolution iSolution = e ->{
+            int[][] arr = new int[e.getNum()][e.getNum()];
+            String result = "";
+            for(int i=0; i< arr.length-1; i++){
+                for(int j=0; j< arr[i].length; j++){
+                    arr[i][j] = (i+2) * (j+1);
+                    result += String.format("%d * %d = %d\n", i+2, j+1, arr[i][j]);
+                }
+                result += '\n';
+            }
+            return Solution.builder().result(result).build();
+        };
+        static IHyungukSolution iHyunguk = () ->{
+            IntStream.rangeClosed(2,9).forEach(i->{
+                IntStream.rangeClosed(1,9).forEach(j->{
+                    System.out.print(i + "*" + j + "=" + String.format("%2d",i * j));
+                    System.out.print("   ");
+                });
+                System.out.println();
+            });
+        };
     }
+    @Test
+    void test(){
+        // 기본형 구구단
+        // Service.iMinseo.solution();
+        // 이차원배열. 구구단 정렬 무시
+        // System.out.println(Service.iSolution.solution(Solution.builder().num(19).build()));
+        // 책받침 구구단
+        // System.out.println(Service.iJinyoung.solution(JinyoungSolution.builder().num(19).build()));
+        // 람다 구구단
+        Service.iHyunguk.solution();
+    }
+
+
 }

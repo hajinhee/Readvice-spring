@@ -1,24 +1,31 @@
 package kr.readvice.api.soccer.domains;
 
-import lombok.Data;
+import lombok.*;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 @Component
 @Entity
-@Table(name = "stadium")
+@Table(name = "stadiums")
 public class Stadium{
-    @Id private Long id;
+    @Id
+    @Column(name = "stadium_no")
+    @GeneratedValue(strategy = GenerationType.IDENTITY) private long stadiumNo;
     @Column(nullable = false) private String stadiumId;
-    @Column private String stadiumName;
-    @Column(nullable = false) private String hometeamId;
-    @Column private int seatCount;
-    @Column private String address;
-    @Column private String ddd;
-    @Column private String tel;
+    private String stadiumName;
+    private String hometeamId;
+    private String seatCount;
+    private String address;
+    private String ddd;
+    private String tel;
+
+    @OneToMany(mappedBy = "stadium")
+    List<Schedule> schedules = new ArrayList<>();
 }

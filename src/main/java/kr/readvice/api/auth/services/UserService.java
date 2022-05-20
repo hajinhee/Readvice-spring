@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-
     String login(User user);
 
     List<User> findAll();
@@ -20,7 +19,7 @@ public interface UserService {
 
     long count();
 
-    String put(User user);
+    String update(User user);
 
     String delete(User user);
 
@@ -30,6 +29,7 @@ public interface UserService {
 
     boolean existsById(String userid);
 
-    //custom
+    // custom
+
     List<User> findByUserName(String name);
 }

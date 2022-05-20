@@ -18,46 +18,51 @@ public class UserController {
     private final UserService service;
 
     @PostMapping("/login")
-    public String login(@RequestBody User user){
+    public String login(@RequestBody User user) {
         return service.login(user);
     }
-    @GetMapping("/logout") //파라미터가 없으면 Get?
-    public String logout(){
+
+    @GetMapping("/logout")
+    public String logout() {
         return "";
+    }
+    @PutMapping("/update")
+    public String update(@RequestBody User user) {
+        return service.update(user);
     }
 
     // Embeded Methods
-    @GetMapping("/findAll")  //find 라는 이름은 무조건 @GetMapping
+    @GetMapping("/findAll")
     public List<User> findAll() {
         return service.findAll();
     }
+
     @GetMapping("/findAll/sort")
     public List<User> findAll(Sort sort) {
         return service.findAll(sort);
     }
+
     @GetMapping("/findAll/pageable")
     public Page<User> findAll(Pageable pageable) {
         return service.findAll(pageable);
     }
-    @GetMapping("/count") //count => @GetMapping
+
+    @GetMapping("/count")
     public long count() {
         return service.count();
     }
-    @PutMapping("/put") //count => @GetMapping
-    public String put(@RequestBody User user) {
-        service.put(user);
-        return "";
-    }
-    @DeleteMapping("/delete") //delete => @DeleteMapping
+
+    @DeleteMapping("/delete")
     public String delete(@RequestBody User user) {
         return service.delete(user);
     }
-    @PostMapping("/join") //save=join
+
+    @PostMapping("/join")
     public String save(@RequestBody User user) {
-        service.save(user);
-        return "";
+        return service.save(user);
     }
-    @GetMapping("/findById/{userid}") //Path=url variable={변수}
+
+    @GetMapping("/findById/{userid}")
     public Optional<User> findById(@PathVariable String userid) {
         return service.findById(userid);
     }

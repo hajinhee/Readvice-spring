@@ -12,14 +12,24 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * packageName: kr.readvice.api.auth.services
+ * fileName        : UserServiceImpl
+ * author           : 하진희
+ * date               : 2022-05-20
+ * ================================
+ * DATE              AUTHOR        NOTE
+ * ================================
+ * 2022-05-20         하진희        최초 생성
+ */
 @Service
-@RequiredArgsConstructor // 서비스(자식)-레파지토리(부모) 연결, prop가 있으면 자식 컴포넌트
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
     private final UserRepository repository;
 
     @Override
     public String login(User user) {
-        return repository.login(user);
+        return "";
     }
 
     @Override
@@ -43,9 +53,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public String put(User user) {
-        repository.put(user);
-        return "";
+    public String update(User user) {
+        return null;
     }
 
     @Override

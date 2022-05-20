@@ -11,10 +11,27 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * packageName: kr.readvice.api.board.services
+ * fileName        : AticleServiceImpl
+ * author           : 하진희
+ * date               : 2022-05-20
+ * ================================
+ * DATE              AUTHOR        NOTE
+ * ================================
+ * 2022-05-20         하진희        최초 생성
+ */
+
 @Service
 @RequiredArgsConstructor
 public class ArticleServiceImpl implements ArticleService{
     private final ArticleRepository repository;
+
+
+    @Override
+    public String update(Article article) {
+        return "";
+    }
 
     @Override
     public List<Article> findAll() {
@@ -45,6 +62,16 @@ public class ArticleServiceImpl implements ArticleService{
     @Override
     public String save(Article article) {
         repository.save(article);
-        return "";
+        return null;
+    }
+
+    @Override
+    public Optional<Article> findById(String articleid) {
+        return repository.findById(0L);
+    }
+
+    @Override
+    public boolean existsById(String articleid) {
+        return repository.existsById(0L);
     }
 }

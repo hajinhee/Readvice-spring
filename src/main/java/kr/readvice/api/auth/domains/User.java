@@ -1,8 +1,8 @@
 package kr.readvice.api.auth.domains;
 
 import com.sun.istack.NotNull;
+import kr.readvice.api.board.domains.Article;
 import lombok.*;
-import org.springframework.data.repository.cdi.Eager;
 import org.springframework.stereotype.Component;
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.List;
 public class User {
     // Builder
     @Id @GeneratedValue
-    @Column(name = "user_id") private long user_id;
+    @Column(name = "user_id") private long userId;
     @Column private @NotNull String username;
     @Column private @NotNull String password;
     @Column private @NotNull String name;

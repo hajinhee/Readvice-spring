@@ -1,28 +1,37 @@
 package kr.readvice.api.soccer.domains;
 
-import lombok.Data;
+import lombok.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
-@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 @Component
 @Entity
-@Table(name = "palyer")
+@Table(name = "players")
 public class Player {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    @Column(name = "player_no")
+    @GeneratedValue(strategy = GenerationType.IDENTITY) private long playerNo;
     @Column(nullable = false) private String playerId;
-    @Column private String playerName;
-    @Column(nullable = false) private String teamId;
-    @Column private String ePlayerName;
-    @Column private String nickName;
-    @Column private String joinYyyy;
-    @Column private String position;
-    @Column private String backNo;
-    @Column private String nation;
-    @Column private String birthDate;
-    @Column private String solar;
-    @Column private String height;
-    @Column private String weight;
+    @Column(nullable = false) private String playerName;
+    private String ePlayerName;
+    private String nickname;
+    private String joinYyyy;
+    private String position;
+    private String backNo;
+    private String nation;
+    private String birthDate;
+    private String solar;
+    private String height;
+    private String weight;
+    private String teamId;
+
+    @ManyToOne
+    @JoinColumn(name = "team_no")
+    private Team team;
+
 }
