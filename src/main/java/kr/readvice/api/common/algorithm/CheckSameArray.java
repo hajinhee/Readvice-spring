@@ -30,6 +30,6 @@ public class CheckSameArray {
                 Solution.builder().list(Arrays.asList(2, 3, 1)).build()
         );
 //        SolutionService sol = (x, y) -> ;
-//        System.out.println(sol.solution(l));
+//        System.out.println(sol.solution(list));
     }
 }

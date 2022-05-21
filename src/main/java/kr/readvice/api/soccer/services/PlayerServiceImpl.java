@@ -61,13 +61,6 @@ public class PlayerServiceImpl implements PlayerService{
     }
 
     @Override
-    public List<Player> findByName(String playername) {
-        List<Player> ls = repository.findAll();
-        Box<String, Player> box = new Box<>();
-        return  null;
-    }
-
-    @Override
     public String update(Player player) {
         return "";    }
 

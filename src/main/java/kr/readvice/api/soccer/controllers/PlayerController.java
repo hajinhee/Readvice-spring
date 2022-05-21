@@ -60,10 +60,4 @@ public class PlayerController {
         return service.existsById(playerid);
     }
 
-    @GetMapping("/findByName/{playername}")
-    public List<Player> findByName(@PathVariable String playername) {
-        return service.findByName(playername);
-    }
-
-
 }

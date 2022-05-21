@@ -29,7 +29,5 @@ public interface PlayerService {
 
     // custom
 
-    List<Player> findByName(String playername);
-
     String update(Player player);
 }
