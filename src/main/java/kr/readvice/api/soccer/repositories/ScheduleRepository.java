@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 
 interface ScheduleCustomRepository{
     // 스케줄 날짜만 수정이 되도록 하시오
-    @Query(value="update schedule s set s.scheDate = :scheDate where s.scheduleNo = :scheduleNo",
-            nativeQuery = true)
-    int update(@Param("scheDate") String scheDate);
+//    @Query(value="update schedule s set s.scheDate = :scheDate where s.scheduleNo = :scheduleNo",
+//            nativeQuery = true)
+//    int update(@Param("scheDate") String scheDate);
 }
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Long>, ScheduleCustomRepository {

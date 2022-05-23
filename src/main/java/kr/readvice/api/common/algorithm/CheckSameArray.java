@@ -20,7 +20,7 @@ public class CheckSameArray {
     }
     @FunctionalInterface
     interface SolutionService{
-        Boolean solution(Solution s, Solution s1);
+        Boolean solution(List<Solution> l);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class CheckSameArray {
                 Solution.builder().list(Arrays.asList(1, 3, 2)).build(),
                 Solution.builder().list(Arrays.asList(2, 3, 1)).build()
         );
-//        SolutionService sol = (x, y) -> ;
-//        System.out.println(sol.solution(list));
+        SolutionService sol = (x) -> x.get(0).getList().containsAll(x.get(1).getList());
+        System.out.println(sol.solution(list));
     }
 }
