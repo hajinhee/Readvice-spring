@@ -1,6 +1,7 @@
 package kr.readvice.api.auth.configs;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import kr.readvice.api.auth.domains.Auth;
@@ -74,8 +75,19 @@ public class AuthProvider implements AuthenticationProvider {
                 .getSubject();
     }
     public String resolveToken(HttpServletRequest request){
-        String bearerToken = request.getHeader("");
-        return "";
+        String bearerToken = request.getHeader("Authorization");
+        if(bearerToken != null && bearerToken.startsWith("Bearer")){
+            return bearerToken.substring(7);
+        }
+        return null;
+    }
+    public boolean validateToken(String token) throws Exception{
+        try{
+            Jwts.parser().setSigningKey(securityKey).parseClaimsJws(token);
+            return true;
+        }catch (JwtException | IllegalArgumentException e){
+            throw new Exception();
+        }
     }
 
     @Override
