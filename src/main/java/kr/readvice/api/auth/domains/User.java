@@ -26,4 +26,6 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     List<Article> articles = new ArrayList<>();
+    @ElementCollection(fetch = FetchType.EAGER)
+    public List<Role> roles;
 }
