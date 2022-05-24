@@ -1,9 +1,9 @@
-package kr.readvice.api.auth.domains;
+package kr.readvice.api.user.domains;
 
 import com.sun.istack.NotNull;
 import kr.readvice.api.board.domains.Article;
 import lombok.*;
-import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

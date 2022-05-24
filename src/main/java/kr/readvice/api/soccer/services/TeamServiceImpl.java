@@ -1,6 +1,5 @@
 package kr.readvice.api.soccer.services;
 
-import kr.readvice.api.auth.domains.User;
 import kr.readvice.api.common.dataStructure.Box;
 import kr.readvice.api.soccer.domains.Team;
 import kr.readvice.api.soccer.repositories.TeamRepository;

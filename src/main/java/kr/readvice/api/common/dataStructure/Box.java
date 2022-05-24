@@ -3,7 +3,7 @@ package kr.readvice.api.common.dataStructure;
 import lombok.Data;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-import kr.readvice.api.auth.domains.User;
+import kr.readvice.api.user.domains.User;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -1,8 +1,11 @@
-package kr.readvice.api.security.domains;
+package kr.readvice.api.auth.domains;
+
+import lombok.Builder;
+import lombok.Getter;
 
 /**
  * packageName: kr.readvice.api.security.domains
- * fileName        : SecurityToken
+ * fileName        : Messenger
  * author           : 하진희
  * date               : 2022-05-23
  * ================================
@@ -10,5 +13,8 @@ package kr.readvice.api.security.domains;
  * ================================
  * 2022-05-23         하진희        최초 생성
  */
-public class SecurityToken {
+@Getter @Builder
+public class Messenger {
+    private String message, code;
+    private int status;
 }

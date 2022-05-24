@@ -1,6 +1,5 @@
 package kr.readvice.api.board.controllers;
 
-import kr.readvice.api.auth.domains.User;
 import kr.readvice.api.board.domains.Article;
 import kr.readvice.api.board.services.ArticleService;
 import lombok.RequiredArgsConstructor;

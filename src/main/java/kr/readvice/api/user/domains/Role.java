@@ -1,4 +1,4 @@
-package kr.readvice.api.auth.domains;
+package kr.readvice.api.user.domains;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package kr.readvice.api.board.domains;
 
-import kr.readvice.api.auth.domains.User;
+import kr.readvice.api.user.domains.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

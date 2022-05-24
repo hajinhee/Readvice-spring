@@ -1,6 +1,5 @@
 package kr.readvice.api.board.repositories;
 
-import kr.readvice.api.auth.domains.User;
 import kr.readvice.api.board.domains.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

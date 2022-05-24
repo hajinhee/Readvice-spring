@@ -1,7 +1,7 @@
-package kr.readvice.api.security.domains;
+package kr.readvice.api.auth.domains;
 
-import kr.readvice.api.auth.domains.Role;
-import kr.readvice.api.security.service.UserDetailsServiceImpl;
+import kr.readvice.api.user.domains.Role;
+import kr.readvice.api.auth.service.AuthServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,8 +27,8 @@ import java.util.List;
 @Log
 @Component
 @RequiredArgsConstructor
-public class SecurityProvider implements AuthenticationProvider {
-    private final UserDetailsServiceImpl service;
+public class AuthProvider implements AuthenticationProvider {
+    private final AuthServiceImpl service;
 
     // Value = 외부에서 주입되는 값
     @Value("${security.jwt.token.security-key:secret-key}")

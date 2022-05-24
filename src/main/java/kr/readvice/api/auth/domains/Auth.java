@@ -1,7 +1,6 @@
-package kr.readvice.api.security.domains;
+package kr.readvice.api.auth.domains;
 
-import com.sun.istack.NotNull;
-import kr.readvice.api.auth.domains.User;
+import kr.readvice.api.user.domains.User;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minidev.json.annotate.JsonIgnore;
@@ -9,8 +8,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
-import java.awt.font.ShapeGraphicAttribute;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,7 +25,7 @@ import java.util.stream.Collectors;
 @Getter
 @RequiredArgsConstructor
 
-public class UserDetailsImpl implements UserDetails {
+public class Auth implements UserDetails {
     private final long userid;
     private final String username;
     @JsonIgnore private final String password;
@@ -36,11 +33,11 @@ public class UserDetailsImpl implements UserDetails {
     private final String email;
 
 
-    public static UserDetailsImpl build(User user) {
+    public static Auth build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getAuthority()))
                 .collect(Collectors.toList());
-        return new UserDetailsImpl(user.getUserId(), user.getUsername(), user.getPassword(),
+        return new Auth(user.getUserId(), user.getUsername(), user.getPassword(),
                 user.getName(), user.getEmail(), authorities
         );
     }

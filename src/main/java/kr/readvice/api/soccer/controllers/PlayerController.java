@@ -1,6 +1,5 @@
 package kr.readvice.api.soccer.controllers;
 
-import kr.readvice.api.auth.domains.User;
 import kr.readvice.api.soccer.domains.Player;
 import kr.readvice.api.soccer.services.PlayerService;
 import lombok.RequiredArgsConstructor;
