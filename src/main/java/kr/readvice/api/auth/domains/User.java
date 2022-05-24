@@ -12,7 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Component // = DTO라는 의미. 컴포넌트는 프로퍼티와 메소드의 집합이다.
 @Entity // JPA에서 사용할 엔티티, ResponseEntity
 @Table(name="users") //엔티티와 매핑할 테이블 이름 지정
 public class User {
