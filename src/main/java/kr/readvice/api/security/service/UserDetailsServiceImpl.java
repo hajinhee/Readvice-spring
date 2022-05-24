@@ -1,8 +1,16 @@
-package kr.readvice.api.security.domains;
+package kr.readvice.api.security.service;
+
+import kr.readvice.api.auth.domains.User;
+import kr.readvice.api.auth.repositories.UserRepository;
+import kr.readvice.api.security.domains.UserDetailsImpl;
+import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * packageName: kr.readvice.api.security.domains
@@ -14,9 +22,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * ================================
  * 2022-05-23         하진희        최초 생성
  */
+@Service
+@RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
+    private final UserRepository repository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        Optional<User> user = Optional.ofNullable(repository.findByUsername(username))
+                .orElseThrow(()-> new UsernameNotFoundException(username+ "에 해당하는 객체가 존재하지 않습니다."));
+        return UserDetailsImpl.build(user.get());
     }
 }

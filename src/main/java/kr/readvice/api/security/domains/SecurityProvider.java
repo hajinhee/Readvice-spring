@@ -1,6 +1,7 @@
 package kr.readvice.api.security.domains;
 
 import kr.readvice.api.auth.domains.Role;
+import kr.readvice.api.security.service.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,7 +11,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.List;
 
