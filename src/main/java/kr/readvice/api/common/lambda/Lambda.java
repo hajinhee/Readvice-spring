@@ -32,6 +32,16 @@ public class Lambda {
         // param과 return(int)이 있으니 순수함수, apply 사용한다.
         return f.apply(s);
     }
+    public static long longParse(String s){
+        Function<String, Long> f = Long :: parseLong;
+        return f.apply(s);
+    }
+    public static float FloatParse(String s){
+        Function<String, Float> f = Float::parseFloat;
+        return f.apply(s);
+    }
+
+
     // Object -> String
     public static String string(Object o){
         //String s = String.valueOf(Object);

@@ -18,7 +18,7 @@ interface UserCustomRepository{
     String login(User user);
 }
 
-
+// interface 구현체가 없기 때문에 @Repository가 없으면 NPE 에러가 난다.
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
     Optional<User> findByUsername(String username);
