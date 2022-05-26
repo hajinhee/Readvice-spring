@@ -18,28 +18,26 @@ import java.util.Optional;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Api(tags = "users")
 @RestController
-@RequiredArgsConstructor // 컨트롤러(자식)-서비스(부모) 연결, 리액트에서의 props
-@RequestMapping("/user")
+@RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserController {
+
     private final UserService service;
     private final ModelMapper modelMapper;
-
-    @ApiOperation(value = "${UserController.login}")
-    @ApiResponses(value={
-         @ApiResponse(code=400, message = "Something Wrong"),
-         @ApiResponse(code=422, message = "유효하지 않은 아이디/비밀번호")
-    })
     @PostMapping("/login")
+    @ApiOperation(value ="${UserController.login")
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Something Wrong"),
+            @ApiResponse(code = 422, message = "유효하지 않은 아이디 / 비밀번호")
+    })
     public ResponseEntity<UserDTO> login(@ApiParam("Login User") @RequestBody UserDTO user) {
-        System.out.println("로그인 정보: "+user.toString());
-        return ResponseEntity.ok(service.login(modelMapper.map(user, User.class)));
+        return ResponseEntity.ok(service.login(user));
     }
 
     @GetMapping("/logout")
     public ResponseEntity<Messenger> logout() {
         return ResponseEntity.ok(service.logout());
     }
-
     @PutMapping("/update")
     public ResponseEntity<Messenger> update(@RequestBody User user) {
         return ResponseEntity.ok(service.update(user));
@@ -57,7 +55,7 @@ public class UserController {
     }
 
     @GetMapping("/findAll/pageable")
-    public ResponseEntity<Page<User>> findAll(Pageable pageable) {
+    public ResponseEntity<Page<User>>findAll(Pageable pageable) {
         return ResponseEntity.ok(service.findAll(pageable));
     }
 
@@ -71,16 +69,17 @@ public class UserController {
         return ResponseEntity.ok(service.delete(user));
     }
 
+
+    @PostMapping("/join")
     @ApiOperation(value = "${UserController.join}")
     @ApiResponses(value={
             @ApiResponse(code=400, message = "Something Wrong"),
             @ApiResponse(code=403, message = "승인거절"),
             @ApiResponse(code=422, message = "중복된 ID")
     })
-    @PostMapping("/join")
     public ResponseEntity<Messenger> save(@ApiParam("Join User") @RequestBody UserDTO user) {
         System.out.println("회원가입 정보: "+user.toString());
-        return ResponseEntity.ok(service.save(modelMapper.map(user, User.class)));
+        return ResponseEntity.ok(service.save(user));
     }
 
     @GetMapping("/findById/{userid}")
@@ -92,5 +91,6 @@ public class UserController {
     public ResponseEntity<Messenger> existsById(@PathVariable String userid) {
         return ResponseEntity.ok(service.existsById(userid));
     }
+
 
 }

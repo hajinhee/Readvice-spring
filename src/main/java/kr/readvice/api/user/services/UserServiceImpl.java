@@ -33,8 +33,7 @@ import static kr.readvice.api.common.lambda.Lambda.string;
  * DATE              AUTHOR        NOTE
  * ================================
  * 2022-05-20         하진희        최초 생성
- */
-@Service
+ */@Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
     private final UserRepository repository;
@@ -43,43 +42,27 @@ public class UserServiceImpl implements UserService{
     private final ModelMapper modelMapper;
 
     @Override
-    public UserDTO login(User user) {
+    public UserDTO login(UserDTO paramUser) {
         try{
-            UserDTO userDTO = modelMapper.map(user, UserDTO.class);
-            User findUser = repository.findByUsername(user.getUsername()).orElse(null);
-            String pw = repository.findByUsername(user.getUsername()).get().getPassword();
-            boolean checkPassword = encoder.matches(user.getPassword(), pw);
-            String username = user.getUsername();
-            List<Role> roles = findUser.getRoles();
-            String token = checkPassword ? provider.createToken(username, roles) : "Wrong Password";
-            userDTO.setToken(token);
-            return userDTO;
-            //Exception은 모든 Exception의 부모
-        } catch (Exception e){
+            UserDTO returnUser = new UserDTO();
+            String username = paramUser.getUsername();
+            User findUser = repository.findByUsername(username).orElse(null);
+            if(findUser != null){
+                boolean checkPassword = encoder.matches(paramUser.getPassword(), findUser.getPassword());
+                if(checkPassword){
+                    returnUser = modelMapper.map(findUser, UserDTO.class);
+                    String token = provider.createToken(username, returnUser.getRoles());
+                    returnUser.setToken(token);
+                }else{
+                    String token = "FAILURE";
+                    returnUser.setToken(token);
+                }
+            }
+            return returnUser;
+        }catch (Exception e){
             throw new SecurityRuntimeException("유효하지 않은 아이디/비밀번호", HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
-
-    @Override
-    public Messenger logout() {
-        return null;
-    }
-
-    @Override
-    public Messenger save(User user) {
-        String result = "";
-        if(repository.findByUsername(user.getUsername()).isEmpty()){
-            List<Role> list = new ArrayList<>();
-            list.add(Role.USER);
-            repository.save(User.builder().password(encoder.encode(user.getPassword()))
-                    .roles(list).build());
-            result = "SUCCESS";
-        }else {
-            result = "FAIL";
-        }
-        return Messenger.builder().message(result).build();
-    }
-
     @Override
     public List<User> findAll() {
         return repository.findAll();
@@ -87,7 +70,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<User> findAll(Sort sort) {
-        return repository.findAll(sort);
+        return repository.findAll();
     }
 
     @Override
@@ -98,7 +81,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public Messenger count() {
         return Messenger.builder().message(string(repository.count())).build();
-
     }
 
     @Override
@@ -112,27 +94,50 @@ public class UserServiceImpl implements UserService{
         return Messenger.builder().message("").build();
     }
 
+    @Override
+    public Messenger save(UserDTO user) {
+        System.out.println("서비스로 전달된 회원가입 정보: "+user.toString());
+        String result = "";
+        if(repository.findByUsername(user.getUsername()).isEmpty()){
+            List<Role> list = new ArrayList<>();
+            list.add(Role.USER);
+            repository.save(User.builder()
+                    .username(user.getUsername())
+                    .name(user.getName())
+                    .regDate(user.getRegDate())
+                    .email(user.getEmail())
+                    .password(encoder.encode(user.getPassword()))
+                    .roles(list).build());
+            result = "SUCCESS";
+        }else{
+            result = "FAIL";
+        }
+        return Messenger.builder().message(result).build();
+    }
 
     @Override
     public Optional<User> findById(String userid) {
         return repository.findById(0L); // userid 타입이 다름
-
     }
 
     @Override
     public Messenger existsById(String userid) {
         return repository.existsById(longParse(userid))
                 ? Messenger.builder().message("EXIST").build()
-                : Messenger.builder().message("NOT_EXIST").build();
-
+                : Messenger.builder().message("NOT_EXIST").build(); // userid 타입이 다름
     }
 
     @Override
     public List<User> findByUserName(String name) {
         List<User> ls = repository.findAll();
         Box<String, User> box = new Box<>();
-//        ls = box.findByUserName(ls, name);
-//        ls.stream().filter(...)
+        // ls = box.findByUserName(ls, name);
+        // ls.stream().filter(...)
         return null;
+    }
+
+    @Override
+    public Messenger logout() {
+        return Messenger.builder().build();
     }
 }

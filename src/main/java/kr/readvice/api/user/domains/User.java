@@ -9,11 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
-@Entity // JPA에서 사용할 엔티티, ResponseEntity
-@Table(name="users") //엔티티와 매핑할 테이블 이름 지정
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Setter
+@Entity
+@Table(name="users")
 public class User {
     // Builder
     @Id @GeneratedValue
