@@ -2,6 +2,7 @@ package kr.readvice.api.user.domains;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 @Component // = DTO라는 의미. 컴포넌트는 프로퍼티와 메소드의 집합이다.
 @Data
+@ToString
 public class UserDTO {
     @ApiModelProperty(position = 1) private long uerId;
     @ApiModelProperty(position = 2) String username;

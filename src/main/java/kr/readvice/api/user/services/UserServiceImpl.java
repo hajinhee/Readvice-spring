@@ -57,6 +57,8 @@ public class UserServiceImpl implements UserService{
                     String token = "FAILURE";
                     returnUser.setToken(token);
                 }
+            }else{
+                returnUser.setToken("FAILURE");
             }
             return returnUser;
         }catch (Exception e){

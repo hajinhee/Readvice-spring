@@ -31,6 +31,7 @@ public class UserController {
             @ApiResponse(code = 422, message = "유효하지 않은 아이디 / 비밀번호")
     })
     public ResponseEntity<UserDTO> login(@ApiParam("Login User") @RequestBody UserDTO user) {
+        System.out.println("컨트롤러 유저 디티오 : " + user);
         return ResponseEntity.ok(service.login(user));
     }
 
